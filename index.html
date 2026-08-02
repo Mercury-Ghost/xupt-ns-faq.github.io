@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>西邮计算机 · 新生 FAQ</title>
+    <style>
+        /* ===== CSS Variables (亮色/暗色) ===== */
+        :root {
+            --bg-body: #f2f5fa;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f0f4ff;
+            --bg-input: #ffffff;
+            --text-primary: #0b1a33;
+            --text-secondary: #1e2f4a;
+            --text-muted: #4f6587;
+            --text-link: #1a5cff;
+            --border-light: #dfe6ef;
+            --border-focus: #1a5cff;
+            --shadow-card: 0 2px 12px rgba(0, 20, 40, 0.06);
+            --shadow-hover: 0 4px 20px rgba(0, 20, 40, 0.10);
+            --shadow-focus: 0 0 0 3px rgba(26, 92, 255, 0.15);
+            --shadow-dropdown: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --accent-blue: #1a5cff;
+            --accent-blue-bg: #eef4ff;
+            --accent-blue-text: #1a5cff;
+            --tag-bg: #eef4ff;
+            --tag-text: #1a5cff;
+            --divider: #e2e9f2;
+            --code-bg: #f0f4fa;
+            --radius: 16px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            /* 毛玻璃专用 */
+            --header-bg: rgba(255, 255, 255, 0.75);
+            --header-border: rgba(255, 255, 255, 0.3);
+            --dropdown-bg: rgba(255, 255, 255, 0.92);
+            --nav-link-color: var(--text-secondary);
+            --nav-link-hover: var(--accent-blue);
+            --nav-link-bg-hover: var(--accent-blue-bg);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0d1117;
+            --bg-card: #161b22;
+            --bg-card-hover: #1c2333;
+            --bg-input: #0d1117;
+            --text-primary: #e6edf5;
+            --text-secondary: #c9d4e0;
+            --text-muted: #8b9aab;
+            --text-link: #58a6ff;
+            --border-light: #30363d;
+            --border-focus: #58a6ff;
+            --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-focus: 0 0 0 3px rgba(88, 166, 255, 0.2);
+            --shadow-dropdown: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --accent-blue: #58a6ff;
+            --accent-blue-bg: #1c2a3a;
+            --accent-blue-text: #58a6ff;
+            --tag-bg: #1c2a3a;
+            --tag-text: #58a6ff;
+            --divider: #30363d;
+            --code-bg: #1c2333;
+            --header-bg: rgba(13, 17, 23, 0.82);
+            --header-border: rgba(48, 54, 61, 0.4);
+            --dropdown-bg: rgba(22, 27, 34, 0.94);
+            --nav-link-color: var(--text-secondary);
+            --nav-link-hover: var(--accent-blue);
+            --nav-link-bg-hover: var(--accent-blue-bg);
+        }
+
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            padding-top: 72px;
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-bottom: 60px;
+            transition: background var(--transition), color var(--transition);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 840px;
+            margin: 0 auto;
+        }
+
+        /* ===== 固定毛玻璃标题栏 ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            backdrop-filter: blur(16px) saturate(1.2);
+            -webkit-backdrop-filter: blur(16px) saturate(1.2);
+            border-bottom: 1px solid var(--header-border);
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            transition: background var(--transition), border-color var(--transition);
+            min-height: 60px;
+        }
+
+        /* ===== 左侧：文字标志 ===== */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .header-left .logo {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+        }
+
+        .header-left .badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-blue-text);
+            background: var(--accent-blue-bg);
+            padding: 2px 10px;
+            border-radius: 20px;
+            -webkit-text-fill-color: var(--accent-blue-text);
+            white-space: nowrap;
+        }
+
+        /* ===== 右侧：汉堡菜单 + 主题切换 ===== */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        /* 汉堡按钮 */
+        .hamburger {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: background 0.2s;
+            color: var(--text-primary);
+        }
+
+        .hamburger:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .hamburger .bar {
+            display: block;
+            width: 22px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+
+        /* 下拉菜单 */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: var(--dropdown-bg);
+            backdrop-filter: blur(16px) saturate(1.2);
+            -webkit-backdrop-filter: blur(16px) saturate(1.2);
+            border: 1px solid var(--header-border);
+            border-radius: 12px;
+            box-shadow: var(--shadow-dropdown);
+            padding: 8px 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px) scale(0.96);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-menu .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--nav-link-color);
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 0;
+        }
+
+        .dropdown-menu .nav-link:hover,
+        .dropdown-menu .nav-link:focus-visible {
+            background: var(--nav-link-bg-hover);
+            color: var(--nav-link-hover);
+        }
+
+        .dropdown-menu .nav-link .link-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .dropdown-menu .nav-link .link-text {
+            flex: 1;
+        }
+
+        .dropdown-menu .nav-link .link-count {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            padding: 0 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        /* 菜单分隔线 */
+        .dropdown-divider {
+            height: 1px;
+            background: var(--divider);
+            margin: 6px 12px;
+        }
+
+        /* 主题切换按钮（在汉堡右侧） */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-card);
+            flex-shrink: 0;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--border-focus);
+            transform: scale(1.02);
+        }
+
+        .theme-toggle .icon {
+            font-size: 15px;
+        }
+
+        /* 汉堡菜单容器（相对定位） */
+        .menu-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ===== 页面内容 ===== */
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 24px;
+            padding-left: 2px;
+            border-left: 3px solid var(--accent-blue);
+            padding-left: 14px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .subtitle .count {
+            background: var(--bg-card);
+            padding: 0 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+        }
+
+        /* ===== Search ===== */
+        .search-box {
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 18px 14px 46px;
+            font-size: 16px;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            outline: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow-card);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .search-box input:focus {
+            border-color: var(--border-focus);
+            box-shadow: var(--shadow-focus);
+        }
+
+        .search-box .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 18px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .search-box .clear-btn {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+            padding: 4px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .search-box .clear-btn:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .search-box .clear-btn.visible {
+            display: block;
+        }
+
+        /* ===== Category ===== */
+        .category {
+            margin-bottom: 32px;
+            animation: fadeUp 0.3s ease forwards;
+            opacity: 0;
+            transform: translateY(12px);
+            scroll-margin-top: 90px;
+        }
+
+        .category:nth-child(1) { animation-delay: 0.02s; }
+        .category:nth-child(2) { animation-delay: 0.04s; }
+        .category:nth-child(3) { animation-delay: 0.06s; }
+        .category:nth-child(4) { animation-delay: 0.08s; }
+        .category:nth-child(5) { animation-delay: 0.10s; }
+        .category:nth-child(6) { animation-delay: 0.12s; }
+        .category:nth-child(7) { animation-delay: 0.14s; }
+        .category:nth-child(8) { animation-delay: 0.16s; }
+        .category:nth-child(9) { animation-delay: 0.18s; }
+        .category:nth-child(10) { animation-delay: 0.20s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--divider);
+            margin-bottom: 14px;
+        }
+
+        .category-header .cat-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .category-header .cat-name {
+            flex: 1;
+        }
+
+        .category-header .cat-count {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            padding: 0 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+        }
+
+        /* ===== FAQ Item ===== */
+        .faq-item {
+            background: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            transition: border var(--transition), box-shadow var(--transition), background var(--transition), transform 0.15s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent-blue);
+            box-shadow: var(--shadow-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-1px);
+        }
+
+        .faq-q {
+            padding: 14px 18px;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            user-select: none;
+            color: var(--text-primary);
+            transition: background 0.15s;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+        }
+
+        .faq-q .q-text {
+            flex: 1;
+        }
+
+        .faq-q .arrow {
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-body);
+            transition: background 0.2s, transform 0.3s;
+        }
+
+        .faq-item:hover .faq-q .arrow {
+            background: var(--accent-blue-bg);
+        }
+
+        .faq-item.open .faq-q .arrow {
+            transform: rotate(180deg);
+            background: var(--accent-blue-bg);
+            color: var(--accent-blue);
+        }
+
+        .faq-a {
+            padding: 0 18px 18px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            display: none;
+            border-top: 1px solid var(--divider);
+            padding-top: 16px;
+            animation: slideDown 0.25s ease forwards;
+        }
+
+        @keyframes slideDown {
+            0% { opacity: 0.4; transform: translateY(-6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .faq-item.open .faq-a {
+            display: block;
+        }
+
+        .faq-a strong,
+        .faq-a b {
+            color: var(--text-primary);
+        }
+
+        .faq-a .highlight {
+            background: var(--accent-blue-bg);
+            color: var(--accent-blue-text);
+            padding: 0 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* ===== Empty State ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: var(--text-muted);
+            display: none;
+            animation: fadeUp 0.3s ease;
+        }
+
+        .empty-state .big-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--divider);
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 18px;
+        }
+
+        .footer a {
+            color: var(--text-link);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            body { padding-top: 66px; padding-left: 12px; padding-right: 12px; }
+            .header { padding: 8px 12px; min-height: 54px; }
+            .header-left .logo { font-size: 18px; }
+            .header-left .badge { font-size: 10px; padding: 0 8px; }
+            .theme-toggle { font-size: 12px; padding: 3px 10px; }
+            .theme-toggle .icon { font-size: 13px; }
+            .subtitle { font-size: 14px; padding-left: 10px; }
+            .faq-q { font-size: 14px; padding: 12px 14px; }
+            .faq-a { font-size: 14px; padding: 0 14px 14px; }
+            .category-header { font-size: 15px; }
+            .search-box input { padding: 12px 14px 12px 40px; font-size: 15px; }
+            .search-box .search-icon { left: 12px; font-size: 16px; }
+            .dropdown-menu { min-width: 180px; right: -4px; }
+        }
+
+        @media (max-width: 480px) {
+            .header { padding: 6px 10px; min-height: 48px; gap: 6px; }
+            .header-left .logo { font-size: 16px; }
+            .header-left .badge { font-size: 9px; padding: 0 6px; }
+            .hamburger { padding: 4px 6px; }
+            .hamburger .bar { width: 18px; height: 2px; }
+            .theme-toggle { font-size: 11px; padding: 2px 8px; }
+            .theme-toggle .icon { font-size: 12px; }
+            .dropdown-menu { min-width: 160px; right: -6px; }
+            .dropdown-menu .nav-link { padding: 8px 14px; font-size: 13px; }
+            .faq-q { font-size: 13px; padding: 10px 12px; }
+            .faq-a { font-size: 13px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        /* ===== 打印 ===== */
+        @media print {
+            .header { position: static; backdrop-filter: none; background: #fff; border-bottom: 1px solid #ccc; }
+            .menu-wrapper { display: none; }
+            .theme-toggle { display: none; }
+            .search-box { display: none; }
+            .faq-item { break-inside: avoid; border: 1px solid #ccc; }
+            .faq-a { display: block !important; }
+            .faq-q .arrow { display: none; }
+            body { background: #fff; color: #000; padding: 20px; }
+            .category { animation: none !important; opacity: 1 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <!-- ===== 固定毛玻璃标题栏 ===== -->
+        <header class="header" id="mainHeader">
+            <!-- 左侧：文字标志 -->
+            <div class="header-left">
+                <span class="logo">&lt;/&gt; 新生 FAQ</span>
+                <span class="badge">西邮 · 计算机学院</span>
+            </div>
+
+            <!-- 右侧：汉堡菜单 + 主题切换 -->
+            <div class="header-actions">
+                <div class="menu-wrapper">
+                    <button class="hamburger" id="hamburgerBtn" aria-label="展开导航菜单" aria-expanded="false">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                    <!-- 下拉菜单 -->
+                    <nav class="dropdown-menu" id="dropdownMenu" aria-label="分类导航">
+                        <!-- 由 JavaScript 动态生成 -->
+                    </nav>
+                </div>
+
+                <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                    <span class="icon" id="themeIcon">🌙</span>
+                    <span id="themeLabel">暗色</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- ===== 页面内容 ===== -->
+        <div class="subtitle">
+            <span>2026 级 · 常见问题汇总 · 点击问题展开答案</span>
+            <span class="count" id="totalCount">0 条</span>
+        </div>
+
+        <!-- Search -->
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="搜索问题关键词（如：床、军训、校园卡）" aria-label="搜索常见问题" />
+            <button class="clear-btn" id="clearBtn" aria-label="清空搜索">✕</button>
+        </div>
+
+        <!-- FAQ Container -->
+        <div id="faqContainer"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <div class="big-icon">🔍</div>
+            <p>没有找到匹配的问题<br />试试其他关键词吧</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <span>💡 点击问题展开 · 持续更新</span>
+            <span>📌 群文件同步更新</span>
+            <span><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ 回到顶部</a></span>
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        //  1. FAQ 数据
+        // ================================================================
+        const faqData = [
+            // ---------- 一、宿舍生活 ----------
+            { category: "宿舍生活", q: "床的尺寸是多少？被子床垫怎么买？", a: "宿舍床标准尺寸为 <strong>0.9m × 1.9m</strong>，床垫被褥需自备。个子高的可以申请加长床，具体需等待通知。" },
+            { category: "宿舍生活", q: "床位是怎么分的？先到先得吗？", a: "宿舍由学校后勤处统一分配，不是先到先得。今年计算机学院宿舍和教学都在<strong>东区</strong>。" },
+            { category: "宿舍生活", q: "宿舍是几人寝？是上床下桌吗？", a: "标准 <strong>6人间</strong>，东区宿舍全部为<strong>上床下桌</strong>，每人配有衣柜，空间足够。" },
+            { category: "宿舍生活", q: "可以装床帘、蚊帐吗？", a: "可以安装。" },
+            { category: "宿舍生活", q: "宿舍有独立卫浴吗？", a: "东区没有独立卫浴（卫生间楼层公共，浴室整栋楼公共）。" },
+            { category: "宿舍生活", q: "空调怎么算？是租的吗？", a: "空调为租赁制，租赁费和电费分开算。租赁费可以选择四年一次性交，电费需宿舍自己充值。" },
+            { category: "宿舍生活", q: "宿舍限电吗？会跳闸吗？", a: "宿舍限制大功率电器，吹风机、电煮锅等会跳闸。正常插电脑没问题。" },
+            { category: "宿舍生活", q: "宿舍几点关门？", a: "晚上 <strong>11:30</strong> 关门，早上 <strong>6:00</strong> 开门。超时进不去。严禁夜不归宿。" },
+            { category: "宿舍生活", q: "晚上查寝吗？", a: "偶尔查，辅导员会提前通知。严禁夜不归宿，导员那边会有系统预警，被抓到后果严重。" },
+
+            // ---------- 二、军训 ----------
+            { category: "军训", q: "军训什么时候开始？多长时间？", a: "所有军训相关事宜请等待通知。" },
+
+            // ---------- 三、学习与课程 ----------
+            { category: "学习与课程", q: "大一有晚自习吗？几点到几点？", a: "有。时间一般为 <strong>19:00 – 20:50</strong>。管理宽松，可写作业或自己学习，不影响他人就行。" },
+            { category: "学习与课程", q: "有早八或早自习吗？", a: "有早八（8:00上课）。早自习安排等待通知，具体看课表。" },
+            { category: "学习与课程", q: "作业多吗？按天还是按周布置？", a: "作业量不大，看老师要求，一般一段时间交一次。大一主要是高数作业和C语言上机作业。" },
+            { category: "学习与课程", q: "实验班/创新班怎么考？", a: "笔试考 <strong>数学（60分）</strong> + <strong>英语（40分）</strong>，通过后有面试。" },
+            { category: "学习与课程", q: "大一学什么编程语言？", a: "大一以 <strong>C语言</strong> 为基础。大数据专业大一上就学 <strong>Python</strong>，其他专业后续也会涉及。" },
+
+            // ---------- 四、食堂与生活 ----------
+            { category: "食堂与生活", q: "学校有几个食堂？用什么支付？", a: "东区1个，西区2个，还有美食广场。用 <strong>微信或支付宝</strong> 直接支付，不需要也没有饭卡。" },
+            { category: "食堂与生活", q: "食堂饭菜贵吗？", a: "正常价格，开学后可以体验一下。" },
+
+            // ---------- 五、社团与实验室 ----------
+            { category: "社团与实验室", q: "社团什么时候纳新？有哪些社团？", a: "开学后两三周有“百团大战”式纳新，到时候去操场转转就能看到。" },
+            { category: "社团与实验室", q: "实验室怎么进？零基础能进吗？", a: "开学后有宣讲会和纳新，需报名+面试，主要考C语言基础（到链表）。大一零基础也能进，肯学就行。" },
+
+            // ---------- 六、团员与入党 ----------
+            { category: "团员与入党", q: "团关系怎么转？现在要操作智慧团建吗？", a: "不急！开学后班级选完团支书，建立班级团支部后会统一通知。现在不用操作智慧团建。" },
+            { category: "团员与入党", q: "不是团员影响大吗？大学能入团吗？", a: "不影响。大学可以入团，一般大一下学期有一批入团机会。" },
+            { category: "团员与入党", q: "什么时候能入党？名额多少？", a: "一般大一下可申请入党积极分子。每班约 <strong>3–4 个</strong>名额（具体等通知），需提交申请并考察。" },
+
+            // ---------- 七、报道与分班 ----------
+            { category: "报道与分班", q: "报道带什么材料？流程是什么？", a: "关键要带个人 <strong>档案袋</strong>（<strong>绝！对！不！能！拆！封！</strong>）。到校后先找班助报到，领宿舍钥匙和电卡，具体等通知。" },
+            { category: "报道与分班", q: "分班和宿舍分配什么时候知道？", a: "登录 <strong>“西安邮电大学”公众号</strong> → <strong>“我是萌新”</strong> 查询。系统通常 <strong>8月中下旬</strong> 开放，现在查不到是正常的。" },
+            { category: "报道与分班", q: "能提前到校吗？", a: "可以提前来参观校园（跟门卫说一声），但不能提前入住宿舍。" },
+            { category: "报道与分班", q: "能提前寄东西到学校吗？地址写什么？", a: "可以。地址写：<strong>陕西省西安市长安区西安邮电大学长安校区东区菜鸟驿站</strong>。快递可免费寄存。请提前预计快递到达时间，不要让快递在快递站待太久！" },
+
+            // ---------- 八、校园交通与环境 ----------
+            { category: "校园交通与环境", q: "东西区离得远吗？", a: "步行约 <strong>20 分钟</strong>。有校内天桥，东区是新生住宿和上课的主要区域。可能会在西区上体育类课程。" },
+            { category: "校园交通与环境", q: "学校可以随便进出吗？要请假吗？", a: "白天可自由进出。周末/节假日离校过夜需在 <strong>“i西邮”小程序</strong> 上请假，辅导员一般不会卡。" },
+            { category: "校园交通与环境", q: "能骑自己的电动车或自行车吗？", a: "自行车可以。电动车目前学校有限制，建议别买。校内有可用共享电动车。" },
+            { category: "校园交通与环境", q: "图书馆要预约吗？", a: "直接进，不用预约。期末周以及各种重大考试前人较多，平时座位充足。" },
+
+            // ---------- 九、防骗提醒 ----------
+            { category: "防骗提醒", q: "群里有人自称老师加我好友，是真的吗？", a: "<strong>假的！</strong> 本群老师只有 <strong>黄中南老师</strong> 和 <strong>冯渤老师</strong>。老师和班助不会私加好友或拉小群。凡以老师名义私加你的，<strong>100% 是骗子！</strong>" },
+            { category: "防骗提醒", q: "有人拉小群卖课/卖被子/办校园卡，能信吗？", a: "<strong>全是骗局！</strong> 学校不会在群里或私下收费。遇到不确定的，先在群里 @班助 核实，切记不要转账！" },
+            { category: "防骗提醒", q: "有勤工俭学岗位吗？", a: "有。但务必认准辅导员在群里发的官方通知，其他渠道的兼职信息不要信。" },
+
+            // ---------- 十、其他常见问题 ----------
+            { category: "其他常见问题", q: "档案袋怎么处理？能拆开吗？", a: "开学时自己带过来，<strong>绝对不要拆开封条！</strong> 报到时统一上交，拆开了很麻烦。" },
+            { category: "其他常见问题", q: "银行卡办哪家的？", a: "学校不要求指定银行。但要申请助学金的话建议办 <strong>农行卡</strong>（学校附近有网点）。开学后办来得及。" },
+            { category: "其他常见问题", q: "校园卡是必须办的吗？", a: "校园卡就是普通电话卡，<strong>非必须</strong>。警惕线上推销，如确有需要建议开学到校后去营业厅线下办理。" },
+            { category: "其他常见问题", q: "学校有湖吗？有猫吗？", a: "图书馆旁有湖，养了很多鸭和鹅。东区有很多流浪猫，可以撸，很好玩。" }
+        ];
+
+        // 分类图标映射
+        const categoryIcons = {
+            "宿舍生活": "🏠",
+            "军训": "🎖️",
+            "学习与课程": "📚",
+            "食堂与生活": "🍜",
+            "社团与实验室": "🧪",
+            "团员与入党": "⭐",
+            "报道与分班": "📦",
+            "校园交通与环境": "🚌",
+            "防骗提醒": "🔒",
+            "其他常见问题": "📌"
+        };
+
+        // ================================================================
+        //  2. 渲染 & 交互逻辑
+        // ================================================================
+
+        const container = document.getElementById('faqContainer');
+        const emptyState = document.getElementById('emptyState');
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearBtn');
+        const totalCount = document.getElementById('totalCount');
+
+        // 渲染函数
+        function render(items) {
+            if (!items || items.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'block';
+                totalCount.textContent = '0 条';
+                return;
+            }
+            emptyState.style.display = 'none';
+            totalCount.textContent = items.length + ' 条';
+
+            const groups = {};
+            items.forEach(item => {
+                if (!groups[item.category]) groups[item.category] = [];
+                groups[item.category].push(item);
+            });
+
+            let html = '';
+            for (const [category, qs] of Object.entries(groups)) {
+                const icon = categoryIcons[category] || '📌';
+                const catId = `category-${category.replace(/\s/g, '')}`;
+                html += `<div class="category" id="${catId}">`;
+                html += `<div class="category-header">
+                            <span class="cat-icon">${icon}</span>
+                            <span class="cat-name">${category}</span>
+                            <span class="cat-count">${qs.length}</span>
+                        </div>`;
+                qs.forEach((item, idx) => {
+                    const uid = `faq-${category.replace(/\s/g, '')}-${idx}`;
+                    html += `<div class="faq-item" id="${uid}" onclick="toggleItem('${uid}')">
+                                <div class="faq-q">
+                                    <span class="q-text">${item.q}</span>
+                                    <span class="arrow">▾</span>
+                                </div>
+                                <div class="faq-a">${item.a}</div>
+                            </div>`;
+                });
+                html += `</div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        // 切换展开/收起
+        window.toggleItem = function(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const isOpen = el.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(item => {
+                if (item.id !== id) item.classList.remove('open');
+            });
+            if (isOpen) {
+                el.classList.remove('open');
+            } else {
+                el.classList.add('open');
+            }
+        };
+
+        // 搜索过滤
+        function filterItems() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            if (!keyword) {
+                render(faqData);
+                clearBtn.classList.remove('visible');
+                updateDropdownCounts();
+                return;
+            }
+            clearBtn.classList.add('visible');
+            const filtered = faqData.filter(item =>
+                item.q.toLowerCase().includes(keyword) ||
+                item.a.toLowerCase().includes(keyword) ||
+                item.category.toLowerCase().includes(keyword)
+            );
+            render(filtered);
+            updateDropdownCounts();
+            if (filtered.length > 0) {
+                document.querySelectorAll('.faq-item').forEach(el => el.classList.add('open'));
+            }
+        }
+
+        // 清空搜索
+        clearBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            clearBtn.classList.remove('visible');
+            render(faqData);
+            updateDropdownCounts();
+            searchInput.focus();
+        });
+
+        let searchTimer = null;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(filterItems, 150);
+        });
+
+        // ================================================================
+        //  3. 汉堡菜单 + 下拉导航
+        // ================================================================
+
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        // 获取各分类的问题数量
+        function getCategoryCounts() {
+            const counts = {};
+            faqData.forEach(item => {
+                counts[item.category] = (counts[item.category] || 0) + 1;
+            });
+            return counts;
+        }
+
+        // 构建下拉菜单
+        function buildDropdown() {
+            const categories = [];
+            const seen = new Set();
+            faqData.forEach(item => {
+                if (!seen.has(item.category)) {
+                    seen.add(item.category);
+                    categories.push(item.category);
+                }
+            });
+
+            const counts = getCategoryCounts();
+            let html = '';
+            categories.forEach(cat => {
+                const icon = categoryIcons[cat] || '📌';
+                const catId = `category-${cat.replace(/\s/g, '')}`;
+                const count = counts[cat] || 0;
+                html += `
+                    <a class="nav-link" href="#${catId}" data-category="${cat}">
+                        <span class="link-icon">${icon}</span>
+                        <span class="link-text">${cat}</span>
+                        <span class="link-count">${count}</span>
+                    </a>
+                `;
+            });
+            dropdownMenu.innerHTML = html;
+
+            // 点击菜单项：滚动到对应分类 + 关闭菜单
+            dropdownMenu.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        history.pushState(null, '', '#' + targetId);
+                    }
+                    closeDropdown();
+                });
+            });
+        }
+
+        // 更新菜单中的计数（搜索时使用）
+        function updateDropdownCounts() {
+            const visibleItems = document.querySelectorAll('.category');
+            const countMap = {};
+            visibleItems.forEach(cat => {
+                const header = cat.querySelector('.category-header .cat-name');
+                const countEl = cat.querySelector('.category-header .cat-count');
+                if (header && countEl) {
+                    const name = header.textContent.trim();
+                    countMap[name] = countEl.textContent.trim();
+                }
+            });
+            // 更新菜单链接中的计数
+            dropdownMenu.querySelectorAll('.nav-link').forEach(link => {
+                const catName = link.getAttribute('data-category');
+                if (catName && countMap[catName]) {
+                    const countSpan = link.querySelector('.link-count');
+                    if (countSpan) countSpan.textContent = countMap[catName];
+                }
+            });
+        }
+
+        // 打开/关闭菜单
+        function toggleDropdown() {
+            const isOpen = dropdownMenu.classList.toggle('open');
+            hamburgerBtn.classList.toggle('active');
+            hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        }
+
+        function closeDropdown() {
+            dropdownMenu.classList.remove('open');
+            hamburgerBtn.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        hamburgerBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleDropdown();
+        });
+
+        // 点击页面其他区域关闭菜单
+        document.addEventListener('click', function(e) {
+            const wrapper = document.querySelector('.menu-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        // ESC 键关闭菜单
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeDropdown();
+            }
+        });
+
+        // 初始构建
+        buildDropdown();
+        render(faqData);
+        updateDropdownCounts();
+
+        // 页面加载时处理 hash
+        window.addEventListener('load', function() {
+            if (location.hash) {
+                const target = document.getElementById(location.hash.substring(1));
+                if (target) {
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 300);
+                }
+            }
+        });
+
+        // 窗口变化时关闭菜单（适应布局变化）
+        let resizeTimer = null;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (window.innerWidth > 768) closeDropdown();
+            }, 200);
+        });
+
+        // ================================================================
+        //  4. 亮色/暗色主题切换
+        // ================================================================
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+
+        function getPreferredTheme() {
+            const stored = localStorage.getItem('xupt-faq-theme');
+            if (stored === 'dark' || stored === 'light') return stored;
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+            return 'light';
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('xupt-faq-theme', theme);
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeLabel.textContent = '亮色';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeLabel.textContent = '暗色';
+            }
+        }
+
+        applyTheme(getPreferredTheme());
+
+        themeToggle.addEventListener('click', function() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+        });
+
+        const darkModeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+        darkModeMedia.addEventListener('change', function(e) {
+            if (!localStorage.getItem('xupt-faq-theme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+
+        // ================================================================
+        //  5. 键盘快捷键
+        // ================================================================
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.activeElement === searchInput) {
+                searchInput.value = '';
+                clearBtn.classList.remove('visible');
+                filterItems();
+                searchInput.blur();
+                e.preventDefault();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'INPUT' && document.activeElement === searchInput) {
+                searchInput.blur();
+            }
+        });
+
+        console.log('✅ 西邮计算机学院 FAQ 已加载 (数据量: ' + faqData.length + ' 条)');
+        console.log('💡 快捷键: Ctrl+K 搜索 | ESC 清空搜索');
+    </script>
+</body>
+</html>
