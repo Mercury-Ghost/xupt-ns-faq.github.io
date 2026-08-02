@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>西邮计算机 · 新生 FAQ</title>
     <style>
-        /* ===== CSS Variables (亮色/暗色) ===== */
+        /* ===== CSS Variables ===== */
         :root {
             --bg-body: #f2f5fa;
             --bg-card: #ffffff;
@@ -30,7 +30,6 @@
             --code-bg: #f0f4fa;
             --radius: 16px;
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            /* 毛玻璃专用 */
             --header-bg: rgba(255, 255, 255, 0.75);
             --header-border: rgba(255, 255, 255, 0.3);
             --dropdown-bg: rgba(255, 255, 255, 0.92);
@@ -115,7 +114,6 @@
             min-height: 60px;
         }
 
-        /* ===== 左侧：文字标志 ===== */
         .header-left {
             display: flex;
             align-items: center;
@@ -146,7 +144,6 @@
             white-space: nowrap;
         }
 
-        /* ===== 右侧：汉堡菜单 + 主题切换 ===== */
         .header-actions {
             display: flex;
             align-items: center;
@@ -154,7 +151,6 @@
             flex-shrink: 0;
         }
 
-        /* 汉堡按钮 */
         .hamburger {
             background: transparent;
             border: none;
@@ -195,7 +191,6 @@
             transform: rotate(-45deg) translate(4px, -4px);
         }
 
-        /* 下拉菜单 */
         .dropdown-menu {
             position: absolute;
             top: calc(100% + 8px);
@@ -266,14 +261,12 @@
             border: 1px solid var(--border-light);
         }
 
-        /* 菜单分隔线 */
-        .dropdown-divider {
-            height: 1px;
-            background: var(--divider);
-            margin: 6px 12px;
+        .menu-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
 
-        /* 主题切换按钮（在汉堡右侧） */
         .theme-toggle {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
@@ -298,13 +291,6 @@
 
         .theme-toggle .icon {
             font-size: 15px;
-        }
-
-        /* 汉堡菜单容器（相对定位） */
-        .menu-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
         }
 
         /* ===== 页面内容 ===== */
@@ -332,7 +318,6 @@
             color: var(--text-muted);
         }
 
-        /* ===== Search ===== */
         .search-box {
             margin-bottom: 28px;
             position: relative;
@@ -645,13 +630,10 @@
     <div class="container" id="app">
         <!-- ===== 固定毛玻璃标题栏 ===== -->
         <header class="header" id="mainHeader">
-            <!-- 左侧：文字标志 -->
             <div class="header-left">
                 <span class="logo">&lt;/&gt; 新生 FAQ</span>
                 <span class="badge">西邮 · 计算机学院</span>
             </div>
-
-            <!-- 右侧：汉堡菜单 + 主题切换 -->
             <div class="header-actions">
                 <div class="menu-wrapper">
                     <button class="hamburger" id="hamburgerBtn" aria-label="展开导航菜单" aria-expanded="false">
@@ -659,12 +641,10 @@
                         <span class="bar"></span>
                         <span class="bar"></span>
                     </button>
-                    <!-- 下拉菜单 -->
                     <nav class="dropdown-menu" id="dropdownMenu" aria-label="分类导航">
                         <!-- 由 JavaScript 动态生成 -->
                     </nav>
                 </div>
-
                 <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
                     <span class="icon" id="themeIcon">🌙</span>
                     <span id="themeLabel">暗色</span>
@@ -678,23 +658,18 @@
             <span class="count" id="totalCount">0 条</span>
         </div>
 
-        <!-- Search -->
         <div class="search-box">
             <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="搜索问题关键词（如：床、军训、校园卡）" aria-label="搜索常见问题" />
             <button class="clear-btn" id="clearBtn" aria-label="清空搜索">✕</button>
         </div>
 
-        <!-- FAQ Container -->
         <div id="faqContainer"></div>
-
-        <!-- Empty State -->
         <div class="empty-state" id="emptyState">
             <div class="big-icon">🔍</div>
             <p>没有找到匹配的问题<br />试试其他关键词吧</p>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
             <span>💡 点击问题展开 · 持续更新</span>
             <span>📌 群文件同步更新</span>
@@ -704,65 +679,65 @@
 
     <script>
         // ================================================================
-        //  1. FAQ 数据
+        //  1. FAQ 数据（根据最新文档整理）
         // ================================================================
         const faqData = [
             // ---------- 一、宿舍生活 ----------
-            { category: "宿舍生活", q: "床的尺寸是多少？被子床垫怎么买？", a: "宿舍床标准尺寸为 <strong>0.9m × 1.9m</strong>，床垫被褥需自备。个子高的可以申请加长床，具体需等待通知。" },
-            { category: "宿舍生活", q: "床位是怎么分的？先到先得吗？", a: "宿舍由学校后勤处统一分配，不是先到先得。今年计算机学院宿舍和教学都在<strong>东区</strong>。" },
-            { category: "宿舍生活", q: "宿舍是几人寝？是上床下桌吗？", a: "标准 <strong>6人间</strong>，东区宿舍全部为<strong>上床下桌</strong>，每人配有衣柜，空间足够。" },
+            { category: "宿舍生活", q: "宿舍床的尺寸是多少？被子床垫怎么买？", a: "宿舍床标准尺寸为 0.9m × 1.9m，床垫被褥需自备。个子高的同学可以申请加长床，具体流程开学后等通知。" },
+            { category: "宿舍生活", q: "床位是怎么分的？先到先得吗？", a: "宿舍和床位皆由学校后勤处统一分配，不是先到先得。今年计算机学院宿舍和教学都在东区。" },
+            { category: "宿舍生活", q: "宿舍是几人寝？是上床下桌吗？", a: "标准 6 人间，东区宿舍全部为上床下桌，每人配有衣柜，空间足够。" },
             { category: "宿舍生活", q: "可以装床帘、蚊帐吗？", a: "可以安装。" },
-            { category: "宿舍生活", q: "宿舍有独立卫浴吗？", a: "东区没有独立卫浴（卫生间楼层公共，浴室整栋楼公共）。" },
+            { category: "宿舍生活", q: "宿舍有独立卫浴吗？", a: "东区没有独立卫浴（卫生间在楼层公共区域，浴室整栋楼共用），但是有个独立小阳台。" },
             { category: "宿舍生活", q: "空调怎么算？是租的吗？", a: "空调为租赁制，租赁费和电费分开算。租赁费可以选择四年一次性交，电费需宿舍自己充值。" },
-            { category: "宿舍生活", q: "宿舍限电吗？会跳闸吗？", a: "宿舍限制大功率电器，吹风机、电煮锅等会跳闸。正常插电脑没问题。" },
-            { category: "宿舍生活", q: "宿舍几点关门？", a: "晚上 <strong>11:30</strong> 关门，早上 <strong>6:00</strong> 开门。超时进不去。严禁夜不归宿。" },
-            { category: "宿舍生活", q: "晚上查寝吗？", a: "偶尔查，辅导员会提前通知。严禁夜不归宿，导员那边会有系统预警，被抓到后果严重。" },
+            { category: "宿舍生活", q: "宿舍限电吗？会跳闸吗？", a: "宿舍限电2000W，限制大功率电器，吹风机、电煮锅等会跳闸。正常插电脑没问题。" },
+            { category: "宿舍生活", q: "宿舍几点关门？", a: "晚上 11:30 关门，早上 6:00 开门。超时进不去。严禁夜不归宿。" },
+            { category: "宿舍生活", q: "晚上查寝吗？", a: "偶尔会查，辅导员会提前通知。严禁夜不归宿，导员那边有系统预警，被抓到后果很严重。" },
 
             // ---------- 二、军训 ----------
-            { category: "军训", q: "军训什么时候开始？多长时间？", a: "所有军训相关事宜请等待通知。" },
+            { category: "军训", q: "军训什么时候开始？多长时间？", a: "所有军训相关事宜请等待学院通知，届时会统一告知。" },
 
             // ---------- 三、学习与课程 ----------
-            { category: "学习与课程", q: "大一有晚自习吗？几点到几点？", a: "有。时间一般为 <strong>19:00 – 20:50</strong>。管理宽松，可写作业或自己学习，不影响他人就行。" },
-            { category: "学习与课程", q: "有早八或早自习吗？", a: "有早八（8:00上课）。早自习安排等待通知，具体看课表。" },
-            { category: "学习与课程", q: "作业多吗？按天还是按周布置？", a: "作业量不大，看老师要求，一般一段时间交一次。大一主要是高数作业和C语言上机作业。" },
-            { category: "学习与课程", q: "实验班/创新班怎么考？", a: "笔试考 <strong>数学（60分）</strong> + <strong>英语（40分）</strong>，通过后有面试。" },
-            { category: "学习与课程", q: "大一学什么编程语言？", a: "大一以 <strong>C语言</strong> 为基础。大数据专业大一上就学 <strong>Python</strong>，其他专业后续也会涉及。" },
+            { category: "学习与课程", q: "大一有晚自习吗？几点到几点？", a: "有。时间一般为 19:00 - 20:50。管理宽松，可以写作业或自己学习，不影响他人就行。" },
+            { category: "学习与课程", q: "有早八或早自习吗？", a: "有早八（8:00 上课）。早自习安排等待通知，具体看课表。" },
+            { category: "学习与课程", q: "作业多吗？按天还是按周布置？", a: "作业量不大，看老师要求，一般是一段时间交一次。大一主要是高数作业和 C 语言上机作业。" },
+            { category: "学习与课程", q: "实验班/创新班怎么考？", a: "笔试考数学（60分）+ 英语（40分），通过后有面试。" },
+            { category: "学习与课程", q: "大一学什么编程语言？", a: "大一以 C 语言为基础。大数据专业大一上学期就学 Python，其他专业后续也会涉及。" },
 
             // ---------- 四、食堂与生活 ----------
-            { category: "食堂与生活", q: "学校有几个食堂？用什么支付？", a: "东区1个，西区2个，还有美食广场。用 <strong>微信或支付宝</strong> 直接支付，不需要也没有饭卡。" },
-            { category: "食堂与生活", q: "食堂饭菜贵吗？", a: "正常价格，开学后可以体验一下。" },
+            { category: "食堂与生活", q: "学校有几个食堂？用什么支付？", a: "东区 1 个，西区 2 个（包括美食广场）。用微信 / 支付宝直接支付，不需要也没有饭卡。" },
+            { category: "食堂与生活", q: "食堂饭菜贵吗？", a: "正常价格，开学后自己体验一下就知道了。" },
 
             // ---------- 五、社团与实验室 ----------
             { category: "社团与实验室", q: "社团什么时候纳新？有哪些社团？", a: "开学后两三周有“百团大战”式纳新，到时候去操场转转就能看到。" },
-            { category: "社团与实验室", q: "实验室怎么进？零基础能进吗？", a: "开学后有宣讲会和纳新，需报名+面试，主要考C语言基础（到链表）。大一零基础也能进，肯学就行。" },
+            { category: "社团与实验室", q: "实验室怎么进？零基础能进吗？", a: "开学后有宣讲会和纳新，需要报名 + 面试，主要考 C 语言基础（到链表）。大一零基础也能进，肯学就行。" },
 
             // ---------- 六、团员与入党 ----------
             { category: "团员与入党", q: "团关系怎么转？现在要操作智慧团建吗？", a: "不急！开学后班级选完团支书，建立班级团支部后会统一通知。现在不用操作智慧团建。" },
             { category: "团员与入党", q: "不是团员影响大吗？大学能入团吗？", a: "不影响。大学可以入团，一般大一下学期有一批入团机会。" },
-            { category: "团员与入党", q: "什么时候能入党？名额多少？", a: "一般大一下可申请入党积极分子。每班约 <strong>3–4 个</strong>名额（具体等通知），需提交申请并考察。" },
+            { category: "团员与入党", q: "什么时候能入党？名额多少？", a: "一般大一下可申请入党积极分子。每班约 3 - 4 个名额（具体等通知），需提交申请并考察。" },
 
             // ---------- 七、报道与分班 ----------
-            { category: "报道与分班", q: "报道带什么材料？流程是什么？", a: "关键要带个人 <strong>档案袋</strong>（<strong>绝！对！不！能！拆！封！</strong>）。到校后先找班助报到，领宿舍钥匙和电卡，具体等通知。" },
-            { category: "报道与分班", q: "分班和宿舍分配什么时候知道？", a: "登录 <strong>“西安邮电大学”公众号</strong> → <strong>“我是萌新”</strong> 查询。系统通常 <strong>8月中下旬</strong> 开放，现在查不到是正常的。" },
+            { category: "报道与分班", q: "报道带什么材料？流程是什么？", a: "关键要带个人档案袋（绝！对！不！能！拆！封！）。到校后先找班助报到，领宿舍钥匙和电卡，具体等通知。" },
+            { category: "报道与分班", q: "分班和宿舍分配什么时候知道？", a: "登录“西安邮电大学”公众号 → “我是萌新” 查询。系统通常 8 月中下旬开放，现在查不到是正常的。" },
             { category: "报道与分班", q: "能提前到校吗？", a: "可以提前来参观校园（跟门卫说一声），但不能提前入住宿舍。" },
-            { category: "报道与分班", q: "能提前寄东西到学校吗？地址写什么？", a: "可以。地址写：<strong>陕西省西安市长安区西安邮电大学长安校区东区菜鸟驿站</strong>。快递可免费寄存。请提前预计快递到达时间，不要让快递在快递站待太久！" },
+            { category: "报道与分班", q: "能提前寄东西到学校吗？地址写什么？", a: "可以。地址写：陕西省西安市长安区西安邮电大学长安校区东区菜鸟驿站。快递可免费寄存。请提前预计快递到达时间，不要让快递在快递站待太久！" },
 
             // ---------- 八、校园交通与环境 ----------
-            { category: "校园交通与环境", q: "东西区离得远吗？", a: "步行约 <strong>20 分钟</strong>。有校内天桥，东区是新生住宿和上课的主要区域。可能会在西区上体育类课程。" },
-            { category: "校园交通与环境", q: "学校可以随便进出吗？要请假吗？", a: "白天可自由进出。周末/节假日离校过夜需在 <strong>“i西邮”小程序</strong> 上请假，辅导员一般不会卡。" },
-            { category: "校园交通与环境", q: "能骑自己的电动车或自行车吗？", a: "自行车可以。电动车目前学校有限制，建议别买。校内有可用共享电动车。" },
-            { category: "校园交通与环境", q: "图书馆要预约吗？", a: "直接进，不用预约。期末周以及各种重大考试前人较多，平时座位充足。" },
+            { category: "校园交通与环境", q: "东西区离得远吗？", a: "步行约 20 分钟。有校内天桥，东区是新生住宿和上课的主要区域。可能会在西区上体育类课程。" },
+            { category: "校园交通与环境", q: "学校可以随便进出吗？要请假吗？", a: "白天可自由进出。周末/节假日离校过夜需在“i西邮”小程序上请假，辅导员一般不会卡。" },
+            { category: "校园交通与环境", q: "能骑自己的电动车或自行车吗？", a: "自行车可以。电动车目前学校有限制，建议别买。校内有共享电动车可用。" },
+            { category: "校园交通与环境", q: "图书馆要预约吗？", a: "直接进，不用预约。期末周以及各种重大考试前（比如四六级或考研）人较多，平时座位充足。" },
 
             // ---------- 九、防骗提醒 ----------
-            { category: "防骗提醒", q: "群里有人自称老师加我好友，是真的吗？", a: "<strong>假的！</strong> 本群老师只有 <strong>黄中南老师</strong> 和 <strong>冯渤老师</strong>。老师和班助不会私加好友或拉小群。凡以老师名义私加你的，<strong>100% 是骗子！</strong>" },
-            { category: "防骗提醒", q: "有人拉小群卖课/卖被子/办校园卡，能信吗？", a: "<strong>全是骗局！</strong> 学校不会在群里或私下收费。遇到不确定的，先在群里 @班助 核实，切记不要转账！" },
+            { category: "防骗提醒", q: "群里有人自称老师加我好友，是真的吗？", a: "假的！本群官方老师只有黄中南老师和冯渤老师。各位老师和班助不会私加好友或拉小群。凡以老师名义私加你的，100% 是骗子！" },
+            { category: "防骗提醒", q: "有人拉小群卖课/卖被子/办校园卡，能信吗？", a: "全是骗局！学校不会在群里或私下收费。遇到不确定的，先在群里 @班助 核实，切记不要转账！" },
             { category: "防骗提醒", q: "有勤工俭学岗位吗？", a: "有。但务必认准辅导员在群里发的官方通知，其他渠道的兼职信息不要信。" },
 
             // ---------- 十、其他常见问题 ----------
-            { category: "其他常见问题", q: "档案袋怎么处理？能拆开吗？", a: "开学时自己带过来，<strong>绝对不要拆开封条！</strong> 报到时统一上交，拆开了很麻烦。" },
-            { category: "其他常见问题", q: "银行卡办哪家的？", a: "学校不要求指定银行。但要申请助学金的话建议办 <strong>农行卡</strong>（学校附近有网点）。开学后办来得及。" },
-            { category: "其他常见问题", q: "校园卡是必须办的吗？", a: "校园卡就是普通电话卡，<strong>非必须</strong>。警惕线上推销，如确有需要建议开学到校后去营业厅线下办理。" },
-            { category: "其他常见问题", q: "学校有湖吗？有猫吗？", a: "图书馆旁有湖，养了很多鸭和鹅。东区有很多流浪猫，可以撸，很好玩。" }
+            { category: "其他常见问题", q: "档案袋怎么处理？能拆开吗？", a: "开学时自己带过来，绝对不要拆开封条！报到时统一上交，拆开了很麻烦。" },
+            { category: "其他常见问题", q: "银行卡办哪家的？", a: "学校不要求指定银行。但要申请助学金的话建议办农行卡（学校附近有网点）。开学后办来得及。" },
+            { category: "其他常见问题", q: "校园卡是必须办的吗？", a: "校园卡就是普通电话卡，非必须。警惕线上推销，如确有需要建议开学到校后去营业厅线下办理。" },
+            { category: "其他常见问题", q: "学校有湖吗？有猫吗？", a: "图书馆旁有湖，养了很多鸭和鹅。东区有很多哈基米（流浪猫猫），可以撸，很好玩。" }
         ];
 
         // 分类图标映射
@@ -789,7 +764,6 @@
         const clearBtn = document.getElementById('clearBtn');
         const totalCount = document.getElementById('totalCount');
 
-        // 渲染函数
         function render(items) {
             if (!items || items.length === 0) {
                 container.innerHTML = '';
@@ -831,7 +805,6 @@
             container.innerHTML = html;
         }
 
-        // 切换展开/收起
         window.toggleItem = function(id) {
             const el = document.getElementById(id);
             if (!el) return;
@@ -846,7 +819,6 @@
             }
         };
 
-        // 搜索过滤
         function filterItems() {
             const keyword = searchInput.value.trim().toLowerCase();
             if (!keyword) {
@@ -868,7 +840,6 @@
             }
         }
 
-        // 清空搜索
         clearBtn.addEventListener('click', function() {
             searchInput.value = '';
             clearBtn.classList.remove('visible');
@@ -890,7 +861,6 @@
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const dropdownMenu = document.getElementById('dropdownMenu');
 
-        // 获取各分类的问题数量
         function getCategoryCounts() {
             const counts = {};
             faqData.forEach(item => {
@@ -899,7 +869,6 @@
             return counts;
         }
 
-        // 构建下拉菜单
         function buildDropdown() {
             const categories = [];
             const seen = new Set();
@@ -926,7 +895,6 @@
             });
             dropdownMenu.innerHTML = html;
 
-            // 点击菜单项：滚动到对应分类 + 关闭菜单
             dropdownMenu.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -941,7 +909,6 @@
             });
         }
 
-        // 更新菜单中的计数（搜索时使用）
         function updateDropdownCounts() {
             const visibleItems = document.querySelectorAll('.category');
             const countMap = {};
@@ -953,7 +920,6 @@
                     countMap[name] = countEl.textContent.trim();
                 }
             });
-            // 更新菜单链接中的计数
             dropdownMenu.querySelectorAll('.nav-link').forEach(link => {
                 const catName = link.getAttribute('data-category');
                 if (catName && countMap[catName]) {
@@ -963,7 +929,6 @@
             });
         }
 
-        // 打开/关闭菜单
         function toggleDropdown() {
             const isOpen = dropdownMenu.classList.toggle('open');
             hamburgerBtn.classList.toggle('active');
@@ -981,7 +946,6 @@
             toggleDropdown();
         });
 
-        // 点击页面其他区域关闭菜单
         document.addEventListener('click', function(e) {
             const wrapper = document.querySelector('.menu-wrapper');
             if (wrapper && !wrapper.contains(e.target)) {
@@ -989,19 +953,16 @@
             }
         });
 
-        // ESC 键关闭菜单
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeDropdown();
             }
         });
 
-        // 初始构建
         buildDropdown();
         render(faqData);
         updateDropdownCounts();
 
-        // 页面加载时处理 hash
         window.addEventListener('load', function() {
             if (location.hash) {
                 const target = document.getElementById(location.hash.substring(1));
@@ -1013,7 +974,6 @@
             }
         });
 
-        // 窗口变化时关闭菜单（适应布局变化）
         let resizeTimer = null;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimer);
